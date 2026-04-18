@@ -1,8 +1,9 @@
-import { LayoutGrid, BarChart3, Search, StickyNote } from "lucide-react";
+import { LayoutGrid, BarChart3, Search, StickyNote, BookOpen } from "lucide-react";
 import Index from "./pages/Index.jsx";
 import Analytics from "./pages/Analytics.jsx";
 import SearchPage from "./pages/Search.jsx";
 import Scratchpad from "./pages/Scratchpad.jsx";
+import NotesLibrary from "./pages/NotesLibrary.jsx";
 
 export const navItems = [
   {
@@ -22,6 +23,12 @@ export const navItems = [
     to: "/search",
     icon: <Search className="h-4 w-4" />,
     page: <SearchPage />,
+  },
+  {
+    title: "笔记库",
+    to: "/notes",
+    icon: <BookOpen className="h-4 w-4" />,
+    page: <NotesLibrary />,
   },
   {
     title: "草稿箱",

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { STATUS_ORDER, TASK_STATUS } from '@/lib/constants';
-import { getTasks } from '@/lib/data';
+import { getTasks, getAllNotes } from '@/lib/data';
 import {
   LayoutGrid,
   Calendar,
@@ -16,6 +16,7 @@ import {
   Tag,
   Flag,
   Filter,
+  BookOpen,
 } from 'lucide-react';
 
 const Sidebar = ({ currentPath = '/', onNavigate }) => {
@@ -27,6 +28,7 @@ const Sidebar = ({ currentPath = '/', onNavigate }) => {
   });
 
   const tasks = getTasks();
+  const allNotes = getAllNotes();
   
   // 统计各状态任务数
   const statusCounts = tasks.reduce((acc, task) => {
@@ -72,6 +74,7 @@ const Sidebar = ({ currentPath = '/', onNavigate }) => {
     { id: 'dashboard', label: '首页', icon: LayoutGrid, path: '/', badge: null },
     { id: 'analytics', label: '洞察分析', icon: BarChart3, path: '/analytics', badge: null },
     { id: 'search', label: '全局搜索', icon: Search, path: '/search', badge: null },
+    { id: 'notes', label: '笔记库', icon: BookOpen, path: '/notes', badge: allNotes.length > 0 ? allNotes.length : null },
     { id: 'scratchpad', label: '草稿箱', icon: StickyNote, path: '/scratchpad', badge: null },
   ];
 

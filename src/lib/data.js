@@ -108,6 +108,29 @@ export const deleteTask = (id) => {
   return filtered.length !== tasks.length;
 };
 
+// 获取所有笔记（跨任务）
+export const getAllNotes = () => {
+  const tasks = getTasks();
+  const allNotes = [];
+  
+  tasks.forEach(task => {
+    if (task.notes && task.notes.length > 0) {
+      task.notes.forEach(note => {
+        allNotes.push({
+          ...note,
+          taskId: task.id,
+          taskCompany: task.company,
+          taskPosition: task.position,
+          taskStatus: task.status,
+        });
+      });
+    }
+  });
+  
+  // 按创建时间倒序排列
+  return allNotes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+};
+
 // 获取草稿箱内容
 export const getScratchpad = () => {
   try {
@@ -153,4 +176,27 @@ export const migrateScratchpadToTask = (scratchpadId, taskData) => {
     return createTask(taskData);
   }
   return null;
+};
+
+// 获取所有附件（跨任务）
+export const getAllAttachments = () => {
+  const tasks = getTasks();
+  const allAttachments = [];
+  
+  tasks.forEach(task => {
+    if (task.attachments && task.attachments.length > 0) {
+      task.attachments.forEach(attachment => {
+        allAttachments.push({
+          ...attachment,
+          taskId: task.id,
+          taskCompany: task.company,
+          taskPosition: task.position,
+          taskStatus: task.status,
+        });
+      });
+    }
+  });
+  
+  // 按创建时间倒序排列
+  return allAttachments.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 };

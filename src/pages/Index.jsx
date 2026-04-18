@@ -69,10 +69,21 @@ const Index = () => {
       
       setActiveFilters(newFilters);
       
-      // 清除location.state，避免刷新后重复应用
-      navigate('/', { replace: true, state: {} });
+      // 处理从笔记库返回时打开特定任务
+      if (location.state.openTaskId) {
+        const task = tasks.find(t => t.id === location.state.openTaskId);
+        if (task) {
+          setSelectedTask(task);
+          setIsDetailOpen(true);
+        }
+        // 清除 state 避免重复打开
+        navigate('/', { replace: true, state: {} });
+      } else {
+        // 清除location.state，避免刷新后重复应用
+        navigate('/', { replace: true, state: {} });
+      }
     }
-  }, [location.state, navigate]);
+  }, [location.state, navigate, tasks]);
 
   // 筛选后的任务列表
   const filteredTasks = tasks.filter(task => {
